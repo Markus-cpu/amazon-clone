@@ -2,11 +2,20 @@ import React from "react";
 import "./Header.css";
 import SearchIcon from '@material-ui/icons/Search';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import {NavLink} from "react-router-dom";
+import {useStateValue} from "../../stateProvider";
 
 const Header = () => {
+    const [{ basket }] = useStateValue()
     return (
         <div className="header">
-            <img className="header__logo" src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="amazon-logo"/>
+            <NavLink className="header__link header__link--hover" to="/">
+                <img
+                    className="header__logo"
+                    src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
+                    alt="amazon-logo"
+                />
+            </NavLink>
             <div className="header__search">
                 <input className="header__searchInput" type="text"/>
                 <SearchIcon className="header__searchIcon"/>
@@ -36,12 +45,15 @@ const Header = () => {
                         Prime
                     </span>
                 </div>
-                <div className="header__optionBasket">
-                    <AddShoppingCartIcon />
-                    <span className="header__optionLineTwo header__basketCount">
-                        0
+
+                <NavLink className="header__link header__link--hover" to="/checkout">
+                    <div className="header__optionBasket">
+                        <AddShoppingCartIcon/>
+                        <span className="header__optionLineTwo header__basketCount">
+                            {basket?.length}
                     </span>
-                </div>
+                    </div>
+                </NavLink>
             </div>
         </div>
     )
