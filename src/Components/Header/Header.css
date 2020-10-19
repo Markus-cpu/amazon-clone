@@ -6,7 +6,10 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    padding: 3px;
+    padding: 5px;
+}
+.header__nav {
+    padding: 5px;
 }
 .header__logo {
     width: 100px;
@@ -47,11 +50,16 @@
     display: flex;
     justify-content: space-evenly;
 }
+.header__options {
+    margin-left: 5px;
+    border: 1px solid transparent;
+}
 .header__option {
     display: flex;
     flex-direction: column;
     color: white;
-    margin: 18px 20px;
+    padding: 18px 20px;
+    border: 1px solid transparent;
 }
 .header__optionLineOne {
      font-size: 10px;

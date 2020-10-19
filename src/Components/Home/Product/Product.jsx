@@ -13,7 +13,7 @@ const Product = ({ title, price, image, rating, id }) => {
                 id,
                 title,
                 image,
-                price,
+                price: price,
                 rating,
             }
         })
