@@ -11,6 +11,9 @@
 .header__nav {
     padding: 5px;
 }
+.header__nav > a {
+    text-decoration: none;
+}
 .header__logo {
     width: 100px;
     object-fit: contain;

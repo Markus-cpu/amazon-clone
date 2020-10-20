@@ -4,11 +4,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import {NavLink} from "react-router-dom";
 import {useStateValue} from "../../stateProvider";
+import {auth} from "../../firebase";
 
 const Header = () => {
-    const [{ basket }] = useStateValue()
+
+    const [{ basket, user }, dispatch] = useStateValue()
+    const handleAuthentication = () => {
+        if (user) {
+            auth.signOut()
+        }
+    }
+
     return (
         <div className="header">
+
             <NavLink className="header__link header__link--hover" to="/">
                 <img
                     className="header__logo"
@@ -16,21 +25,25 @@ const Header = () => {
                     alt="amazon-logo"
                 />
             </NavLink>
+
             <div className="header__search">
                 <input className="header__searchInput" type="text"/>
                 <SearchIcon className="header__searchIcon"/>
             </div>
+
             <div className="header__nav">
-                <NavLink to="/login" className="header__options header__link--hover">
-                    <div className="header__option">
+
+                <NavLink to={ !user && "/login" } className="header__options header__link--hover">
+                    <div onClick={handleAuthentication} className="header__option">
                         <span className="header__optionLineOne">
                             Hello Guest
                         </span>
                         <span className="header__optionLineTwo">
-                            Sign In
+                            { user ? 'Sign Out' : 'Sign In' }
                         </span>
                     </div>
                 </NavLink>
+
                 <div className="header__option">
                     <span className="header__optionLineOne">
                         Returns
@@ -39,6 +52,7 @@ const Header = () => {
                         & Orders
                     </span>
                 </div>
+
                 <div className="header__option">
                     <span className="header__optionLineOne">
                         Your
@@ -56,6 +70,7 @@ const Header = () => {
                     </span>
                     </div>
                 </NavLink>
+
             </div>
         </div>
     )
