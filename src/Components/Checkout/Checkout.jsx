@@ -20,7 +20,7 @@ const Checkout = () => {
                     <h2 className="checkout__title">
                         Your shopping Basket
                     </h2>
-                    <FlipMove enterAnimation="fade" leaveAnimation="fade">
+                    <FlipMove enterAnimation="accordionVertical" leaveAnimation="accordionVertical">
                         {basket.map(product =>
                             <CheckoutProduct
                                 key={product.id}

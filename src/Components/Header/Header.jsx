@@ -35,8 +35,9 @@ const Header = () => {
 
                 <NavLink to={ !user && "/login" } className="header__options header__link--hover">
                     <div onClick={handleAuthentication} className="header__option">
+                        {/* user?.email || "Guest" */}
                         <span className="header__optionLineOne">
-                            Hello Guest
+                            Hello { !user ? 'Guest' : user?.email }
                         </span>
                         <span className="header__optionLineTwo">
                             { user ? 'Sign Out' : 'Sign In' }
