@@ -2,17 +2,19 @@ import React, {useEffect, useState} from "react";
 import "./Payment.css";
 import {useStateValue} from "../../stateProvider";
 import CheckoutProduct from "../Checkout/CheckoutProduct/CheckoutProduct";
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import FlipMove from "react-flip-move";
 import {useElements, useStripe, CardElement} from "@stripe/react-stripe-js";
 import {getTotalBasket} from "../../reducer";
 import CurrencyFormat from "react-currency-format";
+import instance from "../../axios";
 
 const Payment = () => {
     const [{ basket, user }, dispatch] = useStateValue()
+    const history = useHistory()
 
-    const stripe = useStripe();
-    const elements = useElements();
+    const stripe = useStripe()
+    const elements = useElements()
 
     const [succeeded, setSucceeded] = useState(false)
     const [processing, setProcessing] = useState("")
@@ -23,7 +25,7 @@ const Payment = () => {
     useEffect(() => {
         // generate the special stripe secret which allows us to change a customer
         const getClientSecret = async () => {
-            const response = await axios({
+            const response = await instance({
                 method: 'post',
                 // Stripe expects the total in a currencies submits
                 url: `/payments/create?total=${ getTotalBasket(basket) * 100 }`
@@ -32,6 +34,8 @@ const Payment = () => {
         }
         getClientSecret()
     }, [basket])
+
+    console.log('The secret is >>>>', clientSecret)
 
     const handleSubmit = async(e) => {
         // do all the fancy stripe stuff...
@@ -42,7 +46,18 @@ const Payment = () => {
             payment_method: {
                 card: elements.getElement(CardElement),
             }
-        });
+        }).then(({ paymentIntent }) => {
+            //payment - payment confirmation
+            setSucceeded(true)
+            setError(null)
+            setProcessing(false)
+
+            dispatch({
+                type: 'EMPTY_BASKET'
+            })
+
+            history.replace('/orders')
+        })
     }
     const handleChange = (e) => {
         //listen for changes in the CardElement
