@@ -3,7 +3,7 @@ import "./CheckoutProduct.css";
 import StarRateIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import {useStateValue} from "../../../stateProvider";
 
-const CheckoutProduct = forwardRef(({image, title, price, rating, id}, ref) => {
+const CheckoutProduct = forwardRef(({image, title, price, rating, id, hideButton}, ref) => {
     const [{}, dispatch] = useStateValue()
     const removeFromBasket = () => {
         dispatch({
@@ -31,7 +31,9 @@ const CheckoutProduct = forwardRef(({image, title, price, rating, id}, ref) => {
                             <StarRateIcon/>
                         ))}
                     </div>
-                    <button onClick={removeFromBasket}>Remove from basket</button>
+                    {!hideButton && (
+                        <button onClick={removeFromBasket}>Remove from basket</button>
+                    )}
                 </div>
             </div>
     )
