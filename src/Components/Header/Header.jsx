@@ -45,23 +45,27 @@ const Header = () => {
                     </div>
                 </NavLink>
 
-                <div className="header__option">
-                    <span className="header__optionLineOne">
-                        Returns
-                    </span>
-                    <span className="header__optionLineTwo">
-                        & Orders
-                    </span>
-                </div>
+                <NavLink to="/orders" className="header__options header__link--hover">
+                    <div className="header__option">
+                        <span className="header__optionLineOne">
+                             Returns
+                        </span>
+                        <span className="header__optionLineTwo">
+                             & Orders
+                        </span>
+                    </div>
+                </NavLink>
 
-                <div className="header__option">
-                    <span className="header__optionLineOne">
-                        Your
-                    </span>
-                    <span className="header__optionLineTwo">
-                        Prime
-                    </span>
-                </div>
+                <NavLink to="/prime" className="header__options header__link--hover">
+                    <div className="header__option">
+                        <span className="header__optionLineOne">
+                            Your
+                        </span>
+                        <span className="header__optionLineTwo">
+                            Prime
+                        </span>
+                    </div>
+                </NavLink>
 
                 <NavLink className="header__link header__link--hover" to="/checkout">
                     <div className="header__optionBasket">
